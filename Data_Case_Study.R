@@ -1,0 +1,25 @@
+
+
+BearingWear <- read.csv("C:\\Users\\KRamasundaram\\Documents\\MSDS 6306\\Case Study 2\\Data Set\\Bearing_Wear.csv")
+head(BearingWear)
+Cavitation <- read.csv("C:\\Users\\KRamasundaram\\Documents\\MSDS 6306\\Case Study 2\\Data Set\\Cavitation.csv")
+ClosedPressure <- read.csv("C:\\Users\\KRamasundaram\\Documents\\MSDS 6306\\Case Study 2\\Data Set\\Closed_pressure_side.csv")
+ClosedSuction <- read.csv("C:\\Users\\KRamasundaram\\Documents\\MSDS 6306\\Case Study 2\\Data Set\\Closed_Suction_Side.csv")
+CouplingWear <- read.csv("C:\\Users\\KRamasundaram\\Documents\\MSDS 6306\\Case Study 2\\Data Set\\Coupling_Wear.csv")
+Imbalance <- read.csv("C:\\Users\\KRamasundaram\\Documents\\MSDS 6306\\Case Study 2\\Data Set\\Imbalance.csv")
+Misalignment <- read.csv("C:\\Users\\KRamasundaram\\Documents\\MSDS 6306\\Case Study 2\\Data Set\\Misalignment.csv")
+Normal_Ops <- read.csv("C:\\Users\\KRamasundaram\\Documents\\MSDS 6306\\Case Study 2\\Data Set\\Normal_Operation.csv")
+
+BearingWear$Outcome <- c("Bearing Wear")
+Cavitation$Outcome <- c("Cavitation")
+ClosedPressure$Outcome <- c("ClosedPressure")
+ClosedSuction$Outcome <- c("ClosedSuction")
+CouplingWear$Outcome <- c("CouplingWear")
+Imbalance$Outcome <- c("Imbalance")
+Misalignment$Outcome <- c("Misalignment")
+Normal_Ops <- c("Normal")
+
+clean_data <- merge(BearingWear, Cavitation)
+head(clean_data)
+head(Cavitation)
+clean_data <- rbind(BearingWear, ClosedPressure)
