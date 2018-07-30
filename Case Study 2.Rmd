@@ -8,9 +8,18 @@ output: html_document
 
 
 ## INTRODUCTION
-*what is the project about - tak about the pumps
-*What is the imoact of failing pumps
-* waht casues pumop failure
+*what is the project about - talk about the pumps
+A pump is a device thatpushes liquids, gasses and some light solids through a mechanical process from one loaction to another. 
+They simplify the shifting processes and improve on equipment operational efficiencies. They are used in myriad places including human bodies, engines, water and oil wells etc.
+Over the years, pumps have become more and more efficeint in their operation but equaly expensive to purchase and maintain.  To enhance their efficiency, pumps are installed as near to the source of what they are hauling as poosible. Often, as in the cse of an oil well, this wold be thousands of fee below the earth, or in the case of  ahuman body this will be close to the heart as possible.
+
+*What is the impact of failing pumps
+When a pump fails, it may stall an entire process.  in the case of a human being, a heart pump failure may result in death if immediate resoultion is not found. In other sinatcne e.g. oil well, this cold mean heavey machinery and field workers being idle as they wait for the replacement. The replacement also could take severall housr snd  soecialized skill.
+
+*What causes pump failure
+An article posted on the Plant Wellness Way EAM website, *"List of 600+ Centrifugal Pump Set Failure Modes" indicated there are over 600 failure modes. In other words, unless you see the actual failed unit it may be difficult to know whay the unit failed.This is worrisomne to any plant manager interetsed to meet deadlines and avoid pump failures. The aricle further distributes pump failure between human error e.g. instalation error, wrong pump being installed, etc or by Materials-of-Construction failure. 
+[https://www.lifetime-reliability.com/cms/free-articles/reliability-improvement/pump-failure-modes-list/]
+
 *why is the project useful
 
 
