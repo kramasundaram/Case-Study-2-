@@ -1,6 +1,6 @@
 ---
 title: "Case Study_2"
-author: "Julius Mwangi"
+authors: "Kumar Ramasanduran, Julius Mwangi"
 date: "July 29, 2018"
 output: html_document
 ---
@@ -11,7 +11,30 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+```{r}
+BearingWear <- read.csv("C:\\Users\\KRamasundaram\\Documents\\MSDS 6306\\Case Study 2\\Data Set\\Bearing_Wear.csv")
+head(BearingWear)
+Cavitation <- read.csv("C:\\Users\\KRamasundaram\\Documents\\MSDS 6306\\Case Study 2\\Data Set\\Cavitation.csv")
+ClosedPressure <- read.csv("C:\\Users\\KRamasundaram\\Documents\\MSDS 6306\\Case Study 2\\Data Set\\Closed_pressure_side.csv")
+ClosedSuction <- read.csv("C:\\Users\\KRamasundaram\\Documents\\MSDS 6306\\Case Study 2\\Data Set\\Closed_Suction_Side.csv")
+CouplingWear <- read.csv("C:\\Users\\KRamasundaram\\Documents\\MSDS 6306\\Case Study 2\\Data Set\\Coupling_Wear.csv")
+Imbalance <- read.csv("C:\\Users\\KRamasundaram\\Documents\\MSDS 6306\\Case Study 2\\Data Set\\Imbalance.csv")
+Misalignment <- read.csv("C:\\Users\\KRamasundaram\\Documents\\MSDS 6306\\Case Study 2\\Data Set\\Misalignment.csv")
+Normal_Ops <- read.csv("C:\\Users\\KRamasundaram\\Documents\\MSDS 6306\\Case Study 2\\Data Set\\Normal_Operation.csv")
+
+BearingWear$Outcome <- c("Bearing Wear")
+Cavitation$Outcome <- c("Cavitation")
+ClosedPressure$Outcome <- c("ClosedPressure")
+ClosedSuction$Outcome <- c("ClosedSuction")
+CouplingWear$Outcome <- c("CouplingWear")
+Imbalance$Outcome <- c("Imbalance")
+Misalignment$Outcome <- c("Misalignment")
+Normal_Ops <- c("Normal")
+
+clean_data <- merge(BearingWear, Cavitation)
+head(clean_data)
+head(Cavitation)
+clean_data <- rbind(BearingWear, ClosedPressure)
+```
 
