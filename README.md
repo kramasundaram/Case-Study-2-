@@ -1,2 +1,1 @@
-# Case-Study-2-
-Pump Faliure Prediction
+This is  a prediction project. 
