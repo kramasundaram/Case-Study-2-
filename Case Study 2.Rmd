@@ -5,11 +5,29 @@ date: "July 29, 2018"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
-## R Markdown
+
+## INTRODUCTION
+*what is the project about - tak about the pumps
+*What is the imoact of failing pumps
+* waht casues pumop failure
+*why is the project useful
+
+
+## PROBLEM STATEMENT
+*Deduct using the introduction
+*loss in revenue from failed pumps, and labor costs
+*Increased costs of maintenance
+Q. To predict pump failure to avoid financial losses from sudden pump falure
+
+
+## DATA SETS
+*Quality if the data sets
+*Clean Data?
+*what work are we outting on the data sets?
+
+
+## APPROACH
 
 
 ```{r}
