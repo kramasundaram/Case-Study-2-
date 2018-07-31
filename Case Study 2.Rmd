@@ -20,7 +20,7 @@ When a pump fails, it may stall an entire process.  in the case of a human being
 
 **What causes pump failure
 
-An article posted on the Plant Wellness Way EAM website, *"List of 600+ Centrifugal Pump Set Failure Modes" indicated there are over 600 failure modes. In other words, unless you see the actual failed unit it may be difficult to know whay the unit failed.This is worrisomne to any plant manager interetsed to meet deadlines and avoid pump failures. The aricle further distributes pump failure between human error e.g. instalation error, wrong pump being installed, etc or by Materials-of-Construction failure. 
+An article posted on the Plant Wellness Way EAM website, "List of 600+ Centrifugal Pump Set Failure Modes" indicated there are over 600 failure modes. In other words, unless you see the actual failed unit it may be difficult to know whay the unit failed.This is worrisomne to any plant manager interetsed to meet deadlines and avoid pump failures. The aricle further distributes pump failure between human error e.g. instalation error, wrong pump being installed, etc or by Materials-of-Construction failure. ^
 [https://www.lifetime-reliability.com/cms/free-articles/reliability-improvement/pump-failure-modes-list/]
 
 **why is the project useful
