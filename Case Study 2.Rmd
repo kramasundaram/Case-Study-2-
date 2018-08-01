@@ -30,12 +30,13 @@ Oil pumps are critical to the efficiency of oil wells. When an oil well is dug, 
 If we successfuly predict pump failure before it happens, we can provide this information to the maintenance team who will in turn schedule a close down, and replace all the pumps predicted as calpable to failure. This scheduled maintenance will reduce the indiual replacement cost as specialized pesonnel will pull and replace several pumps; In addition, the prior arrangement will have been made to manage other dependant reservoirs, and also send staff on vacation as the maintenance is being performed. 
 
 ## DATA SETS
-Our client provided us with six data sets - 
-
-
-
+Our client provided us with eight data sets which we considered to be relatively clean. We shall:
+1) Read data from eight different files 
+2) Split the data into training and validation sets
+3) Build a model using RandomForest. 
 
 ## APPROACH
+on running the model using RandomForest, it generated a class error of ) for the traiing set. When we tested the model against validation set, the preditcion accuaray was 100%, even after removing some features. 
 
 
 ```{r}
