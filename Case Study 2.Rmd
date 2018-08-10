@@ -20,11 +20,11 @@ When a pump fails, it most certainly stalls an entire process, as fluids are not
 
 *Causes of Pump Failure*
 
-In an article posted in the Plant Wellness Way EAM website, *List of 600+ Centrifugal Pump Set Failure Modes* indicated there are over 600 *pump* failure modes. In other words, unless you see the actual failed unit it may be difficult to know why the unit failed.This is worrisome to any plant manager interested in meeting deadlines and avoiding pump failures. The article distributes pump failure between human error e.g. installation error, wrong pump being installed, etc and Materials-of-Construction failure i.e. manufacture error.[1] 
+In an article posted in the Plant Wellness Way EAM website, *List of 600+ Centrifugal Pump Set Failure Modes* indicated there are over 600 *pump* failure modes. In other words, unless you see the actual failed unit it may be difficult to know why the unit failed.This is worrisome to any plant manager interested in meeting deadlines and avoiding pump failures. The article distributes pump failure between human error e.g. installation error, wrong pump being installed, etc and Materials-of-Construction failure i.e. manufacture error.[^1] 
 With so much at stake, monitoring the pumps becomes a top priority. Organizations are now using artficial intelligence to implement solutions that will improve efficiency and minimize losses.
 
 ### PROBLEM STATEMENT
-Oil pumps are critical to the efficiency of oil wells. When an oil well is dug, a pump is required to pump the oil out of the well into a storage or to a delivery pipe that delivers the oil into a reservoir near the refinery, where another pump will be used to um the oil into the refinery. When the oils is refined, it will require another pump to pump the oil into other reservoirs waiting distribution. When a (one) pump therefore fails, it's not only costly to remove and replace it, but there is also a cascade effect as it involves not only halting oil production, but transportation as well, jamming reservoirs, and utilizing specialized personnel and equipment to pull the pump out of the well and replace it with a new one according to an article "Pump Failure Prediction."[1] 
+Oil pumps are critical to the efficiency of oil wells. When an oil well is dug, a pump is required to pump the oil out of the well into a storage or to a delivery pipe that delivers the oil into a reservoir near the refinery, where another pump will be used to um the oil into the refinery. When the oils is refined, it will require another pump to pump the oil into other reservoirs waiting distribution. When a (one) pump therefore fails, it's not only costly to remove and replace it, but there is also a cascade effect as it involves not only halting oil production, but transportation as well, jamming reservoirs, and utilizing specialized personnel and equipment to pull the pump out of the well and replace it with a new one according to an article "Pump Failure Prediction."[^2] 
 
 If we successfuly predict pump failure before it happens, we can provide this information to the maintenance team who will in turn schedule a close down, and replace all the pumps predicted as calpable to failure. This scheduled maintenance will reduce the indiual replacement cost as specialized pesonnel will pull and replace several pumps; In addition, the prior arrangement will have been made to manage other dependant reservoirs, and also send staff on vacation as the maintenance is being performed.
 
@@ -152,5 +152,5 @@ pred <- predict(pump.rf, validation_data[c(1:10), c(-1, -2, -38)])
 pred
 ```
 
-[1]: Https://www.lifetime-reliability.com/cms/free-articles/reliability-improvement/pump-failure-modes-list/
-[1]: Https://www.maana.io/digital-transformation/pump-failure-prediction/
+[^1]: Https://www.lifetime-reliability.com/cms/free-articles/reliability-improvement/pump-failure-modes-list/
+[^2]: Https://www.maana.io/digital-transformation/pump-failure-prediction/
