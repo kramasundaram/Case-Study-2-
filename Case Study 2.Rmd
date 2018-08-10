@@ -20,7 +20,7 @@ When a pump fails, it most certainly stalls an entire process, as fluids are not
 
 *Causes of Pump Failure*
 
-In an article posted in the Plant Wellness Way EAM website, *List of 600+ Centrifugal Pump Set Failure Modes* indicated there are over 600 *pump* failure modes. In other words, unless you see the actual failed unit it may be difficult to know why the unit failed.This is worrisome to any plant manager interested in meeting deadlines and avoiding pump failures. The article distributes pump failure between human error e.g. installation error, wrong pump being installed, etc and Materials-of-Construction failure i.e. manufacture error.[^1] 
+In an article posted in the Plant Wellness Way EAM website, *List of 600+ Centrifugal Pump Set Failure Modes* indicated there are over 600 *pump* failure modes. In other words, unless you see the actual failed unit it may be difficult to know why the unit failed.This is worrisome to any plant manager interested in meeting deadlines and avoiding pump failures. The article distributes pump failure between human error e.g. installation error, wrong pump being installed, etc and Materials-of-Construction failure i.e. manufacture error.[^1]
 With so much at stake, monitoring the pumps becomes a top priority. Organizations are now using artficial intelligence to implement solutions that will improve efficiency and minimize losses.
 
 ### PROBLEM STATEMENT
@@ -151,6 +151,6 @@ pump.rf$importance
 pred <- predict(pump.rf, validation_data[c(1:10), c(-1, -2, -38)])
 pred
 ```
-
+****
 [^1]: Https://www.lifetime-reliability.com/cms/free-articles/reliability-improvement/pump-failure-modes-list/
 [^2]: Https://www.maana.io/digital-transformation/pump-failure-prediction/
