@@ -1,3 +1,23 @@
+---
+title: "Case Study 2"
+author: "KRamasundaram JMwagi"
+date: "August 10, 2018"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+This file has the R code and output for case study 2.
+
+### Question 1
+
+
+
+```{r}
 library(randomForest)
 library(pROC)
 library(data.table)
@@ -40,7 +60,6 @@ Imbalance$Outcome <- c(6)
 Misalignment$Outcome <- c(7)
 Normal_Ops$Outcome <- c(8)
 field_cav$Outcome <- c(2)
-
 field_mis$Outcome <- c(7)
 field_coup <- field_coup[, -c(38:68)]
 field_coup$Outcome <- c(5)
@@ -87,8 +106,6 @@ model_data <- rbind(model_data, CouplingWear_mod_data)
 model_data <- rbind(model_data, Imbalance_mod_data)
 model_data <- rbind(model_data, Misalignment_mod_data)
 model_data <- rbind(model_data, Normal_mod_data)
-
-
 head(model_data)
 
 # Total number of model data
@@ -189,7 +206,7 @@ pred_coup$anamoly <- ifelse(as.numeric(pred_coup$Outcome)<8, 1, 0)
 # plotting prediction
 par(mar = c(5.1, 7.5, 4.1, 2.1))
 barplot(table(pred_coup$Outcome), col = 'red', main = "Predicted Outcomes Using Lab Data For Coupling Failure", xlab = "Occurances", names.arg= pump_state, horiz = TRUE, las = 1)
-barplot(table(pred_coup$anamoly), col = 'green', main = "Anamoly Detector for Coupling Data", xlab = "Occurances",names.arg = anamoly, xlim = c(0, 78000), ylim= c(0, 1), horiz = TRUE, las = 1)
+barplot(table(pred_coup$anamoly), col = 'green', main = "Anamoly Detector for Coupling Data", names.arg = "Anamoly",  horiz = TRUE, las = 1)
 
 
 # Adding 20% of the data from the field to improve accuracy
@@ -208,3 +225,5 @@ colnames(pred_coup) <- c("Outcome")
 par(mar = c(5.1, 7.5, 4.1, 2.1))
 barplot(table(pred_coup$Outcome), col = 'red', main = "Predicted Outcomes After Adding 20% Field Data For Coupling Failure", xlab = "Occurances", names.arg= pump_state, horiz = TRUE, las = 1)
 
+
+```
