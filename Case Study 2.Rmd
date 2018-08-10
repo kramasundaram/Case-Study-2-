@@ -1,38 +1,37 @@
 ---
 title: "Case Study_2"
-author: "Julius Mwangi"
+author: "Kumar Ramasundaran, Julius Mwangi"
 date: "July 29, 2018"
 output: html_document
 ---
 
-# INTRODUCTION
+# PUMP FAILURE PREDICTIONS
+
+## INTRODUCTION
 *what is the project about - talk about the pumps*
 
-A pump is a device thatpushes liquids, gasses and some light solids through a mechanical process from one loaction to another. They simplify the shifting processes and improve on equipment operational efficiencies. They are used in myriad places including human bodies, engines, water and oil wells etc.
+A pump is a device that pushes liquids, gasses, and light solids through a mechanical process from one location to another. They simplify the shifting processes and improve on equipment operational efficiencies. They are used in myriad places including human bodies, engines, water, and oil wells etc.
 
-Over the years, pumps have become more and more efficeint in their operation but equaly expensive to purchase and maintain. To enhance their efficiency, pumps are installed as near to the source of what they are hauling as poosible. Often, as in the cse of an oil well, this wold be thousands of fee below the earth, or in the case of ahuman body this will be close to the heart as possible.
+Over the years, pumps have become more and more efficient in their operation but equaly expensive to purchase and maintain. To enhance their efficiency, pumps are installed as near to the source of what they are hauling as poosible. Often, as in the case of an oil well, this would be thousands of feet below the earth, or in the case of a human body this will be close to the heart as possible. To maintain the pumps, an engineer would have to extract the pump, assess the failure, repair, and reinstall. The cos 
 
-*What is the impact of failing pumps*
+*Impact of failing pumps*
 
-When a pump fails, it may stall an entire process. In the case of a human being, a heart pump failure may result in death if immediate resoultion is not found. In other instances e.g. oil well, this could mean heavy machinery and field workers being idle as they wait for the replacement. In addition, pump replacement requires specialized techncians and could take severall hours to uninstall the bad pump and install the new pump. One pum faiure could also affect several a=other processes, costing the company thousands of dollars if it happenes witout proper preparations.For example, it may require making immediate arrangements to divertoil delivert to other oil reservoirs, which might not be in a caocity to hndle extra capacity.
+When a pump fails, it most certainly stalls an entire process, as fluids are not moved from one location to the other thus causing pile up both on the loading and the receiving end. The damage may be as extensive and destructive. In the case of a human being, a heart pump failure may result in death if immediate resoultion is not found. For the oil well, this could mean heavy machinery and field workers are rendered idle awaiting replacement, and costing the company millions of dollars in idle costs and revenue losses. In addition, pump replacement requires specialized technicians and in some instances takes severall hours to uninstall the bad pump and install the new/repaired pump. One pump failure could result in a cascade affect several causing failure in multiple processes, costing thousands of dollars if it happens without warning and proper preparations. For example, it may require making immediate arrangements to divert oil delivery to other reservoirs to minimize losses, or stalling the escavation, managing the receiving units so they don't break down as well, or doing whatever possible to minimize losses from a stalled pump.
 
-* What causes pump failure *
+*Causes of Pump Failure
 
-An article posted on the Plant Wellness Way EAM website, "List of 600+ Centrifugal Pump Set Failure Modes" indicated there are over 600 failure modes. In other words, unless you see the actual failed unit it may be difficult to know whay the unit failed.This is worrisomne to any plant manager interetsed to meet deadlines and avoid pump failures. The aricle further distributes pump failure between human error e.g. instalation error, wrong pump being installed, etc or by Materials-of-Construction failure. [^1 https://www.lifetime-reliability.com/cms/free-articles/reliability-improvement/pump-failure-modes-list/]
+In an article posted in the Plant Wellness Way EAM website, *List of 600+ Centrifugal Pump Set Failure Modes* indicated there are over 600 *pump* failure modes. In other words, unless you see the actual failed unit it may be difficult to know why the unit failed.This is worrisome to any plant manager interested in meeting deadlines and avoiding pump failures. The article distributes pump failure between human error e.g. installation error, wrong pump being installed, etc and Materials-of-Construction failure i.e. manufacture error.[1] 
+With so much at stake, monitoring the pumps becomes a top priority. Organizations are now using artficial intelligence to implement solutions that will improve efficiency and minimize losses.
 
-# PROBLEM STATEMENT
-Oil pumps are critical to the efficiency of oil wells. When an oil well is dug, a pump is required to pump the oil out of the well into a storage or to a delivery pipe that delivers the oil into a reservoir near the refinery, where another pump will be used to um the oil into the refinery. When the oils is refined, it will require another pump to pump the oil into other reservoirs waiting distribution. When a (one) pump therefore fails, it's not only costly to remove and replace it, but there is also a cascade effect as it involves not only halting oil production, but transportation as well, jamming reservoirs, and utilizing specialized personnel and equipment to pull the pump out of the well and replace it with a new one according to an article "Pump Failure Prediction" [^1 https://www.maana.io/digital-transformation/pump-failure-prediction/]
+## PROBLEM STATEMENT
+Oil pumps are critical to the efficiency of oil wells. When an oil well is dug, a pump is required to pump the oil out of the well into a storage or to a delivery pipe that delivers the oil into a reservoir near the refinery, where another pump will be used to um the oil into the refinery. When the oils is refined, it will require another pump to pump the oil into other reservoirs waiting distribution. When a (one) pump therefore fails, it's not only costly to remove and replace it, but there is also a cascade effect as it involves not only halting oil production, but transportation as well, jamming reservoirs, and utilizing specialized personnel and equipment to pull the pump out of the well and replace it with a new one according to an article "Pump Failure Prediction."[1] 
 
 If we successfuly predict pump failure before it happens, we can provide this information to the maintenance team who will in turn schedule a close down, and replace all the pumps predicted as calpable to failure. This scheduled maintenance will reduce the indiual replacement cost as specialized pesonnel will pull and replace several pumps; In addition, the prior arrangement will have been made to manage other dependant reservoirs, and also send staff on vacation as the maintenance is being performed.
 
-# DATA SETS AND APPROACH
-Our client provided us with eight data sets i.e BearingWear$Outcome;Cavitation$Outcome;
-ClosedPressure$Outcome;ClosedSuction$Outcome;CouplingWear$Outcome;Imbalance$Outcome;and 
-Misalignment$Outcome. which we considered to be relatively clean. We shall:
+## DATA SETS AND APPROACH
+Our client, a pump manufacturer, provided us with eight data sets i.e BearingWear$Outcome; Cavitation$Outcome; ClosedPressure$Outcome; ClosedSuction$Outcome;CouplingWear$Outcome; Imbalance$Outcome; and Misalignment$Outcome. These data sets were obtained from **factory standards** which we considered to be relatively clean. Our client also provided us with similar data sets obtained from the field.
+Using these data sets, we shall use R to read the data sets, modify them where necessary and build a model. We shall then use RandomForest on this model to predict pump failure using the categories afore listed. 
 
-Read data from eight different files
-Split the data into training and validation sets
-Build a model using RandomForest.
 
 ```{r}
 BearingWear <- read.csv("C:\\Users\\KRamasundaram\\Documents\\MSDS 6306\\Case Study 2\\Data Set\\Bearing_Wear.csv")
@@ -152,3 +151,6 @@ pump.rf$importance
 pred <- predict(pump.rf, validation_data[c(1:10), c(-1, -2, -38)])
 pred
 ```
+
+[1]: Https://www.lifetime-reliability.com/cms/free-articles/reliability-improvement/pump-failure-modes-list/
+[1]: Https://www.maana.io/digital-transformation/pump-failure-prediction/
