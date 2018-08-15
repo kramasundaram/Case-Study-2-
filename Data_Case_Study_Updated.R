@@ -1,6 +1,6 @@
 library(randomForest)
-library(pROC)
-library(data.table)
+#library(pROC)
+#library(data.table) 
 library(ggplot2)
 
 # Read the data from file
@@ -132,6 +132,7 @@ pred_cav$anamoly <- ifelse(as.numeric(pred_cav$Outcome)<8, 1, 0)
 par(mar = c(5.1, 7.5, 4.1, 2.1))
 barplot(table(pred_cav$Outcome), col = 'red', main = "Predicted Outcomes Using Lab Data For Cavitation", xlab = "Occurances", names.arg= pump_state, horiz = TRUE, las = 1)
 barplot(table(pred_cav$anamoly), col = 'green', main = "Anamoly Detector for Cavitation Data", names.arg = anamoly,  horiz = TRUE, las = 1)
+table(pred_cav$anamoly)
 
 
 # Adding 20% of the data from the field to improve accuracy
@@ -155,9 +156,11 @@ pred_misalignment <- as.data.frame(predict(pump.rf, field_mis[c(2:820), c(-1, -2
 colnames(pred_misalignment) <- c("Outcome")
 pred_misalignment$anamoly <- ifelse(as.numeric(pred_misalignment$Outcome)<8, 1, 0)
 
+
 # plotting prediction
 par(mar = c(5.1, 7.5, 4.1, 2.1))
 barplot(table(pred_misalignment$Outcome), col = 'red', main = "Predicted Outcomes Using Lab Data For Misalignment", xlab = "Occurances", names.arg= pump_state, horiz = TRUE, las = 1)
+table(pred_misalignment$anamoly)
 barplot(table(pred_misalignment$anamoly), col = 'green', main = "Anamoly Detector for Misalignment Data", names.arg = anamoly,  horiz = TRUE, las = 1)
 
 # Adding 20% of the data from the field to improve accuracy
@@ -189,7 +192,9 @@ pred_coup$anamoly <- ifelse(as.numeric(pred_coup$Outcome)<8, 1, 0)
 # plotting prediction
 par(mar = c(5.1, 7.5, 4.1, 2.1))
 barplot(table(pred_coup$Outcome), col = 'red', main = "Predicted Outcomes Using Lab Data For Coupling Failure", xlab = "Occurances", names.arg= pump_state, horiz = TRUE, las = 1)
-barplot(table(pred_coup$anamoly), col = 'green', main = "Anamoly Detector for Coupling Data", xlab = "Occurances",names.arg = anamoly, xlim = c(0, 78000), ylim= c(0, 1), horiz = TRUE, las = 1)
+# Count of anamaly prediction 
+table(pred_coup$anamoly)
+barplot(table(pred_coup$anamoly), col = 'green', main = "Anamoly Detector for Coupling Data", xlab = "Occurances",names.arg = anamoly, horiz = TRUE, las = 1)
 
 
 # Adding 20% of the data from the field to improve accuracy
