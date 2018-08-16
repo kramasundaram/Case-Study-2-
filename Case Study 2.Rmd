@@ -5,6 +5,9 @@ date: "July 29, 2018"
 output: html_document
 ---
 
+# Github repository for this project is 
+https://github.com/kramasundaram/Case-Study-2-
+
 ##  Pumps Predictive Analytics and Anomaly Detection
 
 ### INTRODUCTION
