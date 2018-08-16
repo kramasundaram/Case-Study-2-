@@ -59,10 +59,15 @@ head(clean_data)
 head(Cavitation)
 clean_data <- rbind(BearingWear, ClosedPressure)
 ```
-library(randomForest)
+
 
 ### Read the data from file
 ```{r}
+# Install the required library
+library(randomForest)
+library(ggplot2)
+# Read the data from file
+# Following data is from a pump in the lab. Different conditions were induced and data was captured.
 BearingWear <- read.csv("C:\\Users\\KRamasundaram\\Documents\\MSDS 6306\\Case Study 2\\Data Set\\Bearing_Wear.csv")
 head(BearingWear)
 Cavitation <- read.csv("C:\\Users\\KRamasundaram\\Documents\\MSDS 6306\\Case Study 2\\Data Set\\Cavitation.csv")
@@ -72,6 +77,11 @@ CouplingWear <- read.csv("C:\\Users\\KRamasundaram\\Documents\\MSDS 6306\\Case S
 Imbalance <- read.csv("C:\\Users\\KRamasundaram\\Documents\\MSDS 6306\\Case Study 2\\Data Set\\Imbalance.csv")
 Misalignment <- read.csv("C:\\Users\\KRamasundaram\\Documents\\MSDS 6306\\Case Study 2\\Data Set\\Misalignment.csv")
 Normal_Ops <- read.csv("C:\\Users\\KRamasundaram\\Documents\\MSDS 6306\\Case Study 2\\Data Set\\Normal_Operation.csv")
+
+# Additional data received from the pumps in the field
+field_cav <- read.csv("C:\\Users\\KRamasundaram\\Documents\\MSDS 6306\\Case Study 2\\Data Set\\Cavitation_2.csv")
+field_coup <- read.csv("C:\\Users\\KRamasundaram\\Documents\\MSDS 6306\\Case Study 2\\Data Set\\Coupling_Wear_4.csv")
+field_mis <- read.csv("C:\\Users\\KRamasundaram\\Documents\\MSDS 6306\\Case Study 2\\Data Set\\Misalignment_2.csv")
 ```
 
 ### Added a column for outcome
@@ -84,8 +94,22 @@ CouplingWear$Outcome <- c("Coupling Wear")
 Imbalance$Outcome <- c("Imbalance")
 Misalignment$Outcome <- c("Misalignment")
 Normal_Ops$Outcome <- c("Normal")
+field_cav$Outcome <- c("Cavitation")
+field_coup$Outcome <- c("Coupling Wear")
+field_mis$Outcome <- c("Misalignment")
+BearingWear$Outcome <- c(1)
+Cavitation$Outcome <- c(2)
+ClosedPressure$Outcome <- c(3)
+ClosedSuction$Outcome <- c(4)
+CouplingWear$Outcome <- c(5)
+Imbalance$Outcome <- c(6)
+Misalignment$Outcome <- c(7)
+Normal_Ops$Outcome <- c(8)
+field_cav$Outcome <- c(2)
+field_mis$Outcome <- c(7)
+field_coup <- field_coup[, -c(38:68)]
+field_coup$Outcome <- c(5)
 
-str(BearingWear)
 ```
 
 ### Splitting the data for validation and model building
@@ -134,25 +158,160 @@ model_data <- rbind(model_data, CouplingWear_mod_data)
 model_data <- rbind(model_data, Imbalance_mod_data)
 model_data <- rbind(model_data, Misalignment_mod_data)
 model_data <- rbind(model_data, Normal_mod_data)
-
+# Make the colunn names in the field data set match training data set
+colnames(field_coup) <- colnames(validation_data)
 dim(model_data)
 dim(validation_data)
 
-M <- model_data[, c(-1, -2, -38)] #Matrix, so remove target, i.e. outcome
-L <- as.factor(model_data[, 38]) #labels, so select only target i.e. outcome
 ```
 
 ### Training and Testing
 ```{r}
-pump.rf <- randomForest(M, L)
+
+# Build the model using minimum number of sensors and exclude the outcomes
+M <- model_data[, c(-1, -2, -c(3:16), -38)] 
+L <- as.factor(model_data[, 38]) #labels, so select only target i.e. outcome
+
+# trainig and testing
+pump.rf <- randomForest(M, L, ntree = 10)
+
 # evaluating the model
 pump.rf
 pump.rf$importance
-
-pred <- predict(pump.rf, validation_data[c(1:10), c(-1, -2, -38)])
-pred
+pred <- as.data.frame(predict(pump.rf, validation_data[, c(-1, -2, -c(3:16) -38)]))
+colnames(pred) <- c("Outcome")
 ```
+
+### plot for cross-validation testing
+```{r}
+pump_state <- c("Bearing Wear", "Cavitation", "Closed Pressure", "Clsoed Suction", "Coupling Wear", "Imbalnce", "Misalignment", "Normal")
+par(mar = c(5.1, 7.5, 4.1, 2.1))
+barplot(table(pred$Outcome), col = 'red', main = "Predicted Outcomes", xlab = "Occurances", names.arg= pump_state, horiz = TRUE, las = 1)
+barplot(table(validation_data[, 38]), col = 'blue', main = "Actual Outcomes", xlab = "Occurances", names.arg= pump_state, horiz = TRUE, las = 1)
+```
+
+### Anamoly Detection & Prediction of Cavitation Failure on field data
+```{r}
+# predicitng caviation failure for the pump from the field
+pred_cav <- as.data.frame(predict(pump.rf, field_cav[c(2:14000), c(-1, -2, -(3:16),-38)]))
+colnames(pred_cav) <- c("Outcome")
+
+# Anamoly Detector for the data from the field
+anamoly <- c("Normal", "Anamoly")
+pred_cav$anamoly <- ifelse(as.numeric(pred_cav$Outcome)<8, 1, 0)
+
+# plotting prediction
+par(mar = c(5.1, 7.5, 4.1, 2.1))
+barplot(table(pred_cav$Outcome), col = 'red', main = "Predicted Outcomes Using Lab Data For Cavitation", xlab = "Occurances", names.arg= pump_state, horiz = TRUE, las = 1)
+# Count of anamaly prediction 
+table(pred_cav$anamoly)
+barplot(table(pred_cav$anamoly), col = 'green', main = "Anamoly Detector for Cavitation Data", names.arg = anamoly,  horiz = TRUE, las = 1)
+```
+
+### Prediction of Cavitation after Adding 20% of the data from the field
+```{r}
+model_data <- rbind(model_data, field_cav[c(1:as.integer(0.2*nrow(field_cav))) ,])
+M <- model_data[, c(-1, -2, -c(3:16), -38)] 
+L <- as.factor(model_data[, 38]) #labels, so select only target i.e. outcome
+
+# re-trainig
+pump.rf <- randomForest(M, L, ntree = 10)
+
+
+# predicting again
+pred_cav <- as.data.frame(predict(pump.rf, field_cav[c(2:14000), c(-1, -2, -(3:16),-38)]))
+colnames(pred_cav) <- c("Outcome")
+
+# plottting the prediction
+par(mar = c(5.1, 7.5, 4.1, 2.1))
+barplot(table(pred_cav$Outcome), col = 'red', main = "Predicted Outcomes Adding 20% of Field Data to Model for Cavitation", xlab = "Occurances", names.arg= pump_state, horiz = TRUE, las = 1)
+
+```
+
+### Anamoly Detection & Prediction of Misalignment on field data
+```{r}
+# predicting misalignment failure
+pred_misalignment <- as.data.frame(predict(pump.rf, field_mis[c(2:820), c(-1, -2, -(3:16),-38)]))
+colnames(pred_misalignment) <- c("Outcome")
+pred_misalignment$anamoly <- ifelse(as.numeric(pred_misalignment$Outcome)<8, 1, 0)
+
+
+# plotting prediction
+par(mar = c(5.1, 7.5, 4.1, 2.1))
+barplot(table(pred_misalignment$Outcome), col = 'red', main = "Predicted Outcomes Using Lab Data For Misalignment", xlab = "Occurances", names.arg= pump_state, horiz = TRUE, las = 1)
+# Count of anamaly detector
+table(pred_misalignment$anamoly)
+barplot(table(pred_misalignment$anamoly), col = 'green', main = "Anamoly Detector for Misalignment Data", names.arg = anamoly,  horiz = TRUE, las = 1)
+
+```
+
+### Prediction of Misalignment after Adding 20% of the data from the field
+```{r}
+# Adding 20% of the data from the field to improve accuracy
+model_data <- rbind(model_data, field_mis[c(1:as.integer(0.2*nrow(field_mis))) ,])
+M <- model_data[, c(-1, -2, -c(3:16), -38)] 
+L <- as.factor(model_data[, 38]) #labels, so select only target i.e. outcome
+
+# trainig and testing
+pump.rf <- randomForest(M, L, ntree = 10)
+
+# predicitng misalginment for the data from the field
+pred_misalignment <- as.data.frame(predict(pump.rf, field_mis[c(2:820), c(-1, -2, -(3:16),-38)]))
+colnames(pred_misalignment) <- c("Outcome")
+
+
+#plotting the predicition
+par(mar = c(5.1, 7.5, 4.1, 2.1))
+barplot(table(pred_misalignment$Outcome), col = 'red', main = "Predicted Outcomes After Adding 20% Field Data For Misalignment", xlab = "Occurances", names.arg= pump_state, horiz = TRUE, las = 1)
+```
+
+### Anamoly Detection & Prediction of coupling failure on field data
+```{r}
+# predicitng coupling failure
+# Data clean up
+field_coup[, c(17:37)] <- lapply(field_coup[, c(17:37)], as.character)
+field_coup[, c(17:37)] <- lapply(field_coup[, c(17:37)], as.numeric)
+
+# Prediction
+pred_coup <- as.data.frame(predict(pump.rf, field_coup[c(2:75000), c(-1, -2, -(3:16),-38)]))
+colnames(pred_coup) <- c("Outcome")
+pred_coup$anamoly <- ifelse(as.numeric(pred_coup$Outcome)<8, 1, 0)
+
+# plotting prediction
+par(mar = c(5.1, 7.5, 4.1, 2.1))
+barplot(table(pred_coup$Outcome), col = 'red', main = "Predicted Outcomes Using Lab Data For Coupling Failure", xlab = "Occurances", names.arg= pump_state, horiz = TRUE, las = 1)
+# Count of anamaly prediction 
+table(pred_coup$anamoly)
+barplot(table(pred_coup$anamoly), col = 'green', main = "Anamoly Detector for Coupling Data", names.arg = "Anamoly",  horiz = TRUE, las = 1)
+
+```
+
+
+### Prediction of coupling after Adding 20% of the data from the field
+```{r}
+
+# Adding 20% of the data from the field to improve accuracy
+model_data <- rbind(model_data, field_coup[c(1:as.integer(0.2*nrow(field_coup))) ,])
+
+M <- model_data[, c(-1, -2, -c(3:16), -38)] 
+L <- as.factor(model_data[, 38]) #labels, so select only target i.e. outcome
+
+# trainig and testing
+pump.rf <- randomForest(M, L)
+
+pred_coup <- as.data.frame(predict(pump.rf, field_coup[c(2:75000), c(-1, -2, -(3:16),-38)]))
+colnames(pred_coup) <- c("Outcome")
+
+# plotting the prediciton
+par(mar = c(5.1, 7.5, 4.1, 2.1))
+barplot(table(pred_coup$Outcome), col = 'red', main = "Predicted Outcomes After Adding 20% Field Data For Coupling Failure", xlab = "Occurances", names.arg= pump_state, horiz = TRUE, las = 1)
+
+
+```
+
+
+
 ****
-[^1]:While we have made references to general pums including pumps used in the huamn body, this study focuses only on industrial pumps movin liquids. 
+[^1]:While we have made references to general pumps including pumps used in the huamn body, this study focuses only on industrial pumps movin liquids. 
 [^2]: Https://www.lifetime-reliability.com/cms/free-articles/reliability-improvement/pump-failure-modes-list/
 [^3]: Https://www.maana.io/digital-transformation/pump-failure-prediction/
